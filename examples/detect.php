@@ -450,8 +450,6 @@ function detect_fetcher($r, &$out)
         }
 
         $url = $result->final_url;
-//var_dump($result);
-//var_dump($url);
         if (!$url == $expected_url) {
             $ok = false;
             if ($url == $fetch_url) {
