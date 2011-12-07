@@ -314,7 +314,7 @@ function detect_stores($r, &$out)
 
     $found = array();
     foreach (array('sqlite', 'mysql', 'pgsql') as $dbext) {
-        if (extension_loaded($dbext) || (ini_get('enable_dl') && dl($dbext . '.' . PHP_SHLIB_SUFFIX))) {
+        if (extension_loaded($dbext)) {
             $found[] = $dbext;
         }
     }
@@ -450,12 +450,12 @@ function detect_fetcher($r, &$out)
         }
 
         $url = $result->final_url;
-        if ($url != $expected_url) {
+        if (!$url == $expected_url) {
             $ok = false;
             if ($url == $fetch_url) {
                 $msg = 'The redirected URL was not returned.';
             } else {
-                $msg = 'An unexpected URL was returned: <' . $url . '>.';
+                $msg = 'An unexpected URL was returned: <a href="' . $url . '">'. $url . '</a>. tried to fetch <a href="' . $fetch_url . '">' . $fetch_url . '</a>';
             }
             $parts[] = $r->b($msg);
         }
